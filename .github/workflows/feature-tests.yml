@@ -7,6 +7,7 @@ on:
       # Adjust this pattern to match your naming convention (e.g., 'feature1', 'feature2', etc.)
       - 'feature/*'
       - 'feature-*'
+      - 'create-dev-profile'
       # You can also list specific branches if needed:
       # - 'feature1'
 
