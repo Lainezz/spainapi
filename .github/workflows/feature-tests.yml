@@ -27,7 +27,4 @@ jobs:
 
       - name: Execute Tests (e.g., Maven, Gradle, npm test)
         run: |
-          # Replace this with the command to execute your tests
-          mvn test
-          # or: npm test
-          # or: pytest
+          ./gradlew clean test
