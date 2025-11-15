@@ -6,50 +6,8 @@ services:
     container_name: spain-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql
-    # Optional: expose MySQL to host (DBeaver, CLI, etc.)
+      MYSQL_DATABASE: spaindb
+      MYSQL_USER: diego
+      MYSQL_PASSWORD: diego
     ports:
       - "3306:3306"
-    networks:
-      - backend
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD} || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  app:
-    image: lainezzz/spainapi:latest
-    container_name: spain-api
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      # Spring picks these because you use ${DB_URL}, ${DB_USER}, ${DB_PASS}
-      DB_URL: jdbc:mysql://db:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      DB_USER: ${MYSQL_USER}
-      DB_PASS: ${MYSQL_PASSWORD}
-      SPRING_PROFILES_ACTIVE: prod
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
-    # If you add Actuator, you can add a healthcheck here too
-    # healthcheck:
-    #   test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep UP || exit 1"]
-    #   interval: 15s
-    #   timeout: 5s
-    #   retries: 5
-
-volumes:
-  db_data:
-
-networks:
-  backend:
-    driver: bridge
