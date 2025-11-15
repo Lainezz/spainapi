@@ -18,6 +18,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # NEW STEP: Grant Execute Permission
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
       - name: Set up Java/Python/Node (or your specific runtime)
         # Example: Replace with your actual setup action
         uses: actions/setup-java@v4
@@ -26,5 +30,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Execute Tests (e.g., Maven, Gradle, npm test)
-        run: |
-          ./gradlew clean test
+        run: ./gradlew clean test
