@@ -22,12 +22,12 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
 
-      - name: Set up Java/Python/Node (or your specific runtime)
+      - name: Set up Java
         # Example: Replace with your actual setup action
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Execute Tests (e.g., Maven, Gradle, npm test)
-        run: ./gradlew clean test
+      - name: Execute Tests
+        run: ./gradlew test
