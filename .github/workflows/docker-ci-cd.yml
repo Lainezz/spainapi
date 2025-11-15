@@ -60,6 +60,3 @@ jobs:
           push: true # Indicamos que queremos subir la imagen
           tags: |
             lainezzz/spainapi:armv7
-            lainezzz/spainapi:latest-armv7
-            # Puedes añadir más tags si quieres, por ejemplo, uno con el SHA del commit
-            # lainezzz/spainapi:armv7-${{ github.sha }}
