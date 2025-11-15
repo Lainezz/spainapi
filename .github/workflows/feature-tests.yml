@@ -1,0 +1,33 @@
+name: 🧪 Feature Branch Tests
+
+on:
+  push:
+    branches:
+      # Use a wildcard pattern to match any branch starting with 'feature/' or 'feature-'
+      # Adjust this pattern to match your naming convention (e.g., 'feature1', 'feature2', etc.)
+      - 'feature/*'
+      - 'feature-*'
+      - 'create-dev-profile'
+      # You can also list specific branches if needed:
+      # - 'feature1'
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # NEW STEP: Grant Execute Permission
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Set up Java
+        # Example: Replace with your actual setup action
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Execute Tests
+        run: ./gradlew test
