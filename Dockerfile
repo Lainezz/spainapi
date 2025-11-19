@@ -4,7 +4,7 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 # Copiamos el JAR generado por Spring Boot
-COPY build/libs/spainapi-0.0.1-SNAPSHOT.jar app.jar
+COPY spainapi-api/build/libs/spainapi-api-0.0.1-SNAPSHOT.jar app.jar
 
 # Puerto interno donde escucha Spring Boot
 EXPOSE 8080
