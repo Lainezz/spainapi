@@ -1,0 +1,39 @@
+name: Rollback SpainAPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versión de la imagen a la que quieres hacer rollback (ej: 1.0.17)"
+        required: true
+        type: string
+
+jobs:
+  rollback:
+    # Opcional: sólo permitir rollback si lanzas el workflow desde main
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      IMAGE_NAME: lainezzz/spainapi
+
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull selected version (armv7)
+        run: |
+          echo "Pulling $IMAGE_NAME:${{ inputs.version }} for linux/arm/v7..."
+          docker pull --platform=linux/arm/v7 $IMAGE_NAME:${{ inputs.version }}
+
+      - name: Retag as prod and push
+        run: |
+          echo "Rolling back to version: ${{ inputs.version }}"
+          docker tag $IMAGE_NAME:${{ inputs.version }} $IMAGE_NAME:prod
+          docker push $IMAGE_NAME:prod
+          echo "Rollback complete. 'prod' now points to $IMAGE_NAME:${{ inputs.version }}."
