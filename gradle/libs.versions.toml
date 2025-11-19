@@ -1,0 +1,33 @@
+[versions]
+lombok        = "1.18.32"
+modelmapper   = "3.2.0"
+
+# Only if you want to control Spring Boot version *here* instead of via plugin
+spring-boot   = "3.3.4"
+
+[libraries]
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+
+lombok        = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+mysql-driver  = { module = "com.mysql:mysql-connector-j" }
+modelmapper   = { module = "org.modelmapper:modelmapper", version.ref = "modelmapper" }
+
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+junit-platform-launcher  = { module = "org.junit.platform:junit-platform-launcher" }
+
+micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+
+[bundles]
+spring-boot-starters = [
+    "spring-boot-starter-web",
+    "spring-boot-starter-oauth2-resource-server",
+    "spring-boot-starter-data-jpa",
+    "spring-boot-starter-actuator",
+]

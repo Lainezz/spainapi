@@ -6,11 +6,12 @@ services:
     container_name: spain-db
     restart: unless-stopped
     environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: spaindb
       MYSQL_USER: diego
       MYSQL_PASSWORD: diego
     ports:
-      - "3306:3306"
+      - "3309:3306"
 
   prometheus:
     image: prom/prometheus
