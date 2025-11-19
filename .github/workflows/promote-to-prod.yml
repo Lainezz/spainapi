@@ -4,31 +4,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-trigger:
-    runs-on: ubuntu-latest
-    outputs:
-      should_deploy: ${{ steps.check.outputs.found }}
-
-    steps:
-      - name: Try to download trigger artifact
-        id: check
-        uses: actions/download-artifact@v4
-        with:
-          name: prod-trigger
-        continue-on-error: true
-
-      - name: Validate trigger
-        run: |
-          if [ -f "trigger.txt" ]; then
-            echo "found=true" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-            echo "❌ No trigger found. Nothing to deploy."
-          fi
-
   promote-to-prod:
-    needs: check-trigger
-    if: needs.check-trigger.outputs.should_deploy == 'true'
+    # Solo ejecuta el job si el workflow se lanza desde la rama 'main'
+    if: github.ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
     environment: production
 
@@ -49,11 +28,3 @@ jobs:
         run: |
           docker tag  $IMAGE_NAME:acc $IMAGE_NAME:prod
           docker push $IMAGE_NAME:prod
-
-      - name: Delete trigger artifact
-        run: rm trigger.txt
-
-      - name: Cleanup action artifacts
-        uses: geekyeggo/delete-artifact@v3
-        with:
-          name: prod-trigger
