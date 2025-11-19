@@ -26,7 +26,7 @@ jobs:
         run: echo "IMAGE_TAG=1.0.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Pull acc image
-        run: docker pull $IMAGE_NAME:acc
+        run: docker pull --platform=linux/arm/v7 $IMAGE_NAME:acc
 
       - name: Tag acc as prod and push
         run: |
