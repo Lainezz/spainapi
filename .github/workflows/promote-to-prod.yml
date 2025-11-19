@@ -1,0 +1,31 @@
+name: Promote ACC to PROD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  promote-to-prod:
+    # SOLO permitir que se ejecute si el commit está en la rama "production"
+    if: github.ref == 'refs/heads/production'
+
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      IMAGE_NAME: lainezzz/spainapi
+
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull acc image
+        run: docker pull $IMAGE_NAME:acc
+
+      - name: Tag acc as prod and push
+        run: |
+          docker tag  $IMAGE_NAME:acc $IMAGE_NAME:prod
+          docker push $IMAGE_NAME:prod
+
