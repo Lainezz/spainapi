@@ -21,10 +21,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # 5. Calcular versión de la imagen (1.0.X usando el run_number)
+      - name: Set image version
+        run: echo "IMAGE_TAG=1.0.${{ github.run_number }}" >> $GITHUB_ENV
+
       - name: Pull acc image
         run: docker pull $IMAGE_NAME:acc
 
       - name: Tag acc as prod and push
         run: |
-          docker tag  $IMAGE_NAME:acc $IMAGE_NAME:prod
-          docker push $IMAGE_NAME:prod
+          docker tag  $IMAGE_NAME:acc $IMAGE_NAME:prod 
+          docker push $IMAGE_NAME:prod 
+          docker tag $IMAGE_NAME:acc $IMAGE_NAME:${{ env.IMAGE_TAG }}
+          docker push $IMAGE_NAME:${{ env.IMAGE_TAG }}
