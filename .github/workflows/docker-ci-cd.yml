@@ -3,7 +3,7 @@ name: Build and Push SpainAPI (ACC)
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build-and-push-acc:
