@@ -52,5 +52,5 @@ jobs:
           file: ./Dockerfile      # tu Dockerfile
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}   # ej: lainezzz/spainapi:1.0.15
-            ${{ env.IMAGE_NAME }}:acc                    # puntero a la última de ACC
+            ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} 
+            ${{ env.IMAGE_NAME }}:acc
