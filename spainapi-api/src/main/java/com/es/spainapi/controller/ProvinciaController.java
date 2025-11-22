@@ -72,15 +72,15 @@ public class ProvinciaController {
 					content = @Content
 			)
 	})
-	@GetMapping("/{id}")
+	@GetMapping("/{cprov}")
 	public ResponseEntity<ProvinciaDTO> getOne(
 			@Parameter(
 					description = "Province identifier, from 02 - 52",
 					example = "02"
 			)
-			@PathVariable String id
+			@PathVariable String cprov
 	) {
-		return ResponseEntity.ok(facade.getOne(id));
+		return ResponseEntity.ok(facade.getOne(cprov));
 	}
 
 	@Operation(

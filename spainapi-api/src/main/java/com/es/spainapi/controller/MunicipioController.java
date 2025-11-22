@@ -70,12 +70,41 @@ public class MunicipioController {
 		return ResponseEntity.ok(facade.getOneByNmun(nmun));
 	}
 
+	@Operation(
+			summary = "Get municipio by composite ID",
+			description = "Returns a municipio identified by its province code (cprov) and municipality code (cmun)."
+	)
+	@ApiResponses(value = {
+			@ApiResponse(
+					responseCode = "200",
+					description = "Municipio found",
+					content = @Content(
+							mediaType = "application/json",
+							schema = @Schema(implementation = MunicipioDTO.class)
+					)
+			),
+			@ApiResponse(
+					responseCode = "404",
+					description = "Municipio not found",
+					content = @Content
+			),
+			@ApiResponse(
+					responseCode = "400",
+					description = "Invalid parameters",
+					content = @Content
+			)
+	})
+	@GetMapping("/byMunId/{cprov}/{cmun}")
+	public ResponseEntity<MunicipioDTO> getOneByMunId(@PathVariable String cprov, @PathVariable String cmun) {
+		return ResponseEntity.ok(facade.getOneByMunId(cprov, cmun));
+	}
+
 	// --------------------------------------------------------------------------------------------
 	// GET /allByNprov/{nprov}
 	// --------------------------------------------------------------------------------------------
 	@Operation(
-			summary = "Retrieve all municipalities by NPROV",
-			description = "Get the list of municipalities belonging to a given province using its Province Name (NPROV)."
+			summary = "Retrieve all municipalities by nprov",
+			description = "Get the list of municipalities belonging to a given province using its Province Name (nprov)."
 	)
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -88,7 +117,7 @@ public class MunicipioController {
 			),
 			@ApiResponse(
 					responseCode = "400",
-					description = "Invalid province name (NPROV)",
+					description = "Invalid province name (nprov)",
 					content = @Content
 			)
 	})

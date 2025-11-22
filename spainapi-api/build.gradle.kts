@@ -24,7 +24,7 @@ dependencies {
     implementation(libs.bundles.spring.boot.starters)
 
     // Otros
-    implementation(libs.modelmapper)
+    implementation(libs.mapstruct)
     implementation(libs.micrometer.registry.prometheus)
 
     // SWAGGER
@@ -33,6 +33,7 @@ dependencies {
     // Annotation processors (Spring config + Lombok)
     annotationProcessor(libs.spring.boot.configuration.processor)
     annotationProcessor(libs.lombok)
+    annotationProcessor(libs.bundles.mapstruct.bundle)
 
     // Lombok solo en compilación
     compileOnly(libs.lombok)
@@ -46,6 +47,7 @@ dependencies {
     // Tests
     testRuntimeOnly(libs.junit.platform.launcher)
     testImplementation(libs.spring.boot.starter.test)
+
 }
 
 tasks.withType<Test> {

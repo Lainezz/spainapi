@@ -1,14 +1,11 @@
 package com.es.spainapi.facade;
 
 import com.es.spainapi.dto.ProvinciaDTO;
-import com.es.spainapi.model.Provincia;
+import com.es.spainapi.mapper.ProvinciaMapper;
 import com.es.spainapi.service.api.ProvinciaServiceAPI;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Facade class. This will have the cast between DTO and Entities
  */
@@ -16,23 +13,23 @@ import java.util.stream.Collectors;
 public class ProvinciaFacade {
 
     private final ProvinciaServiceAPI service;
-    private final ModelMapper mm;
+    private final ProvinciaMapper provinciaMapper;
 
-    public ProvinciaFacade(ProvinciaServiceAPI service, ModelMapper mm) {
+    public ProvinciaFacade(ProvinciaServiceAPI service, ProvinciaMapper provinciaMapper) {
         this.service = service;
-        this.mm = mm;
+        this.provinciaMapper = provinciaMapper;
     }
 
     public List<ProvinciaDTO> getAll() {
-        return service.getAll().stream().map(p -> mm.map(p, ProvinciaDTO.class)).collect(Collectors.toList());
+        return provinciaMapper.toDtoList(service.getAll());
     }
 
-    public ProvinciaDTO getOne(String id) {
-        return mm.map(service.getOne(id), ProvinciaDTO.class);
+    public ProvinciaDTO getOne(String cprov) {
+        return provinciaMapper.toDto(service.getOne(cprov));
     }
 
     public ProvinciaDTO insertOne(ProvinciaDTO dto) {
-        return mm.map(service.insertOne(mm.map(dto, Provincia.class)), ProvinciaDTO.class);
+        return provinciaMapper.toDto(service.insertOne(provinciaMapper.toEntity(dto)));
     }
 
     public void deleteOne(String id) {

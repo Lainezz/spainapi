@@ -2,10 +2,10 @@ package com.es.spainapi.facade;
 
 import com.es.spainapi.dto.MunicipioAllDTO;
 import com.es.spainapi.dto.MunicipioDTO;
-import com.es.spainapi.dto.MunicipioSummaryDTO;
+import com.es.spainapi.mapper.MunicipioMapper;
 import com.es.spainapi.model.Municipio;
+import com.es.spainapi.model.MunicipioId;
 import com.es.spainapi.service.api.MunicipioServiceAPI;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,41 +14,31 @@ import java.util.List;
 public class MunicipioFacade {
 
     private final MunicipioServiceAPI service;
-    private final ModelMapper mm;
+    private final MunicipioMapper municipioMapper;
 
-    public MunicipioFacade(MunicipioServiceAPI service, ModelMapper mm) {
+    public MunicipioFacade(MunicipioServiceAPI service, MunicipioMapper municipioMapper) {
         this.service = service;
-        this.mm = mm;
+        this.municipioMapper = municipioMapper;
     }
 
 
     public MunicipioDTO getOneByNmun(String nmun) {
+        return municipioMapper.toDto(service.findByNmun(nmun));
+    }
 
-        return mm.map(service.findByNmun(nmun), MunicipioDTO.class);
+    public MunicipioDTO getOneByMunId(String cprov, String cmun) {
+        MunicipioId municipioId = new MunicipioId(cprov, cmun);
+        return municipioMapper.toDto(service.getOne(municipioId));
     }
 
     public MunicipioAllDTO getallByNprov(String nprov) {
-
-        return getMunicipioAllDTO(service.getAllByNprov(nprov));
-
+        List<Municipio> municipios = service.getAllByNprov(nprov);
+        return municipioMapper.toAllDto(municipios);
     }
 
     public MunicipioAllDTO getallByCprov(String cprov) {
-
-        return getMunicipioAllDTO(service.getAllByCprov(cprov));
-
+        List<Municipio> municipios = service.getAllByCprov(cprov);
+        return municipioMapper.toAllDto(municipios);
     }
 
-    private MunicipioAllDTO getMunicipioAllDTO(List<Municipio> entities) {
-        List<MunicipioSummaryDTO> municipios = entities.stream()
-                .map(municipio -> mm.map(municipio, MunicipioSummaryDTO.class))
-                .toList();
-
-        MunicipioAllDTO allMunicipios = new MunicipioAllDTO();
-        allMunicipios.setMunicipios(municipios);
-        allMunicipios.setNprov(entities.get(0).getProvincia().getNprov());
-        allMunicipios.setCprov(entities.get(0).getProvincia().getCprov());
-
-        return allMunicipios;
-    }
 }
