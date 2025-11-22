@@ -33,16 +33,20 @@ public class MunicipioService extends GenericServiceImpl<Municipio, MunicipioId>
     }
 
     @Override
-    public List<Municipio> getAllByNprov(String nprov) {
-        return municipioRepository.findAllByProvincia_NprovIgnoreCase(nprov).orElseThrow(
-                () -> new NotFoundException("Provincia "+ nprov +" not found")
-        );
+    public List<Municipio> getAllByNprov(String nprov) throws NotFoundException {
+	    List<Municipio> municipios = municipioRepository.findAllByProvincia_NprovIgnoreCase(nprov);
+	    if (municipios.isEmpty()) {
+		    throw new NotFoundException("Provincia " + nprov + " not found");
+	    }
+	    return municipios;
     }
 
     @Override
     public List<Municipio> getAllByCprov(String cprov) {
-        return municipioRepository.findAllByProvincia_CprovIgnoreCase(cprov).orElseThrow(
-                () -> new NotFoundException("Provincia "+ cprov +" not found")
-        );
+	    List<Municipio> municipios = municipioRepository.findAllByProvincia_CprovIgnoreCase(cprov);
+	    if (municipios.isEmpty()) {
+		    throw new NotFoundException("Provincia " + cprov + " not found");
+	    }
+	    return municipios;
     }
 }

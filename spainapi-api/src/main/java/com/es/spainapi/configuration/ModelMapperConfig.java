@@ -36,7 +36,7 @@ public class ModelMapperConfig {
         m2d.addMappings(m -> {
             m.map(src -> src.getID().getCprov(), MunicipioDTO::setCprov);
             m.map(src -> src.getID().getCmun(), MunicipioDTO::setCmun);
-            m.map(Municipio::getNmun,       MunicipioDTO::setNmun);
+            m.map(Municipio::getNmun, MunicipioDTO::setNmun);
             // Si quisieras incluir datos de provincia:
             m.map(src -> src.getProvincia().getNprov(), MunicipioDTO::setNprov);
         });

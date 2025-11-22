@@ -29,17 +29,13 @@ public class MunicipioFacade {
 
     public MunicipioAllDTO getallByNprov(String nprov) {
 
-        List<Municipio> entities = service.getAllByNprov(nprov);
-
-        return getMunicipioAllDTO(entities);
+        return getMunicipioAllDTO(service.getAllByNprov(nprov));
 
     }
 
     public MunicipioAllDTO getallByCprov(String cprov) {
 
-        List<Municipio> entities = service.getAllByCprov(cprov);
-
-        return getMunicipioAllDTO(entities);
+        return getMunicipioAllDTO(service.getAllByCprov(cprov));
 
     }
 

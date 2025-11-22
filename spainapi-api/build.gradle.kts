@@ -27,6 +27,9 @@ dependencies {
     implementation(libs.modelmapper)
     implementation(libs.micrometer.registry.prometheus)
 
+    // SWAGGER
+    implementation(libs.springdoc.openapi.ui)
+
     // Annotation processors (Spring config + Lombok)
     annotationProcessor(libs.spring.boot.configuration.processor)
     annotationProcessor(libs.lombok)

@@ -1,6 +1,7 @@
 [versions]
 lombok        = "1.18.32"
 modelmapper   = "3.2.0"
+springdoc     = "2.8.14"
 
 # Only if you want to control Spring Boot version *here* instead of via plugin
 spring-boot   = "3.3.4"
@@ -23,6 +24,8 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 junit-platform-launcher  = { module = "org.junit.platform:junit-platform-launcher" }
 
 micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+
+springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 
 [bundles]
 spring-boot-starters = [
