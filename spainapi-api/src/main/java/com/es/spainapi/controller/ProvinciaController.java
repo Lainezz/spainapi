@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -103,7 +104,7 @@ public class ProvinciaController {
 			)
 	})
 	@PostMapping("/")
-	public ResponseEntity<ProvinciaDTO> insertOne(@RequestBody ProvinciaDTO dto) {
+	public ResponseEntity<ProvinciaDTO> insertOne(@Valid @RequestBody ProvinciaDTO dto) {
 		return new ResponseEntity<>(facade.insertOne(dto), HttpStatus.CREATED);
 	}
 
@@ -128,15 +129,15 @@ public class ProvinciaController {
 					content = @Content
 			)
 	})
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{cprov}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteOne(
 			@Parameter(
 					description = "Province identifier",
-					example = "AL"
+					example = "02"
 			)
-			@PathVariable String id
+			@PathVariable String cprov
 	) {
-		facade.deleteOne(id);
+		facade.deleteOne(cprov);
 	}
 }

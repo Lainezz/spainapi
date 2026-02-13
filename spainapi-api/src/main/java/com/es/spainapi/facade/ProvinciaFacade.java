@@ -12,27 +12,27 @@ import java.util.List;
 @Service
 public class ProvinciaFacade {
 
-    private final ProvinciaServiceAPI service;
+    private final ProvinciaServiceAPI provinciaService;
     private final ProvinciaMapper provinciaMapper;
 
-    public ProvinciaFacade(ProvinciaServiceAPI service, ProvinciaMapper provinciaMapper) {
-        this.service = service;
+    public ProvinciaFacade(ProvinciaServiceAPI provinciaService, ProvinciaMapper provinciaMapper) {
+        this.provinciaService = provinciaService;
         this.provinciaMapper = provinciaMapper;
     }
 
     public List<ProvinciaDTO> getAll() {
-        return provinciaMapper.toDtoList(service.getAll());
+        return provinciaMapper.toDtoList(provinciaService.getAll());
     }
 
     public ProvinciaDTO getOne(String cprov) {
-        return provinciaMapper.toDto(service.getOne(cprov));
+        return provinciaMapper.toDto(provinciaService.getOne(cprov));
     }
 
     public ProvinciaDTO insertOne(ProvinciaDTO dto) {
-        return provinciaMapper.toDto(service.insertOne(provinciaMapper.toEntity(dto)));
+        return provinciaMapper.toDto(provinciaService.insertOne(provinciaMapper.toEntity(dto)));
     }
 
-    public void deleteOne(String id) {
-        service.deleteOne(id);
+    public void deleteOne(String cprov) {
+        provinciaService.deleteOne(cprov);
     }
 }

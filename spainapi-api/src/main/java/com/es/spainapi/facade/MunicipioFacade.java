@@ -13,31 +13,31 @@ import java.util.List;
 @Service
 public class MunicipioFacade {
 
-    private final MunicipioServiceAPI service;
+    private final MunicipioServiceAPI municipioService;
     private final MunicipioMapper municipioMapper;
 
-    public MunicipioFacade(MunicipioServiceAPI service, MunicipioMapper municipioMapper) {
-        this.service = service;
+    public MunicipioFacade(MunicipioServiceAPI municipioService, MunicipioMapper municipioMapper) {
+        this.municipioService = municipioService;
         this.municipioMapper = municipioMapper;
     }
 
 
     public MunicipioDTO getOneByNmun(String nmun) {
-        return municipioMapper.toDto(service.findByNmun(nmun));
+        return municipioMapper.toDto(municipioService.findByNmun(nmun));
     }
 
     public MunicipioDTO getOneByMunId(String cprov, String cmun) {
         MunicipioId municipioId = new MunicipioId(cprov, cmun);
-        return municipioMapper.toDto(service.getOne(municipioId));
+        return municipioMapper.toDto(municipioService.getOne(municipioId));
     }
 
     public MunicipioAllDTO getallByNprov(String nprov) {
-        List<Municipio> municipios = service.getAllByNprov(nprov);
+        List<Municipio> municipios = municipioService.getAllByNprov(nprov);
         return municipioMapper.toAllDto(municipios);
     }
 
     public MunicipioAllDTO getallByCprov(String cprov) {
-        List<Municipio> municipios = service.getAllByCprov(cprov);
+        List<Municipio> municipios = municipioService.getAllByCprov(cprov);
         return municipioMapper.toAllDto(municipios);
     }
 
