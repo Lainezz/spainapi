@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface MunicipioRepository extends JpaRepository<Municipio, MunicipioId> {
 
     Optional<Municipio> findByNmun(String nmun);
-    Optional<List<Municipio>> findAllByProvincia_NprovIgnoreCase(String nprov);
-    Optional<List<Municipio>> findAllByProvincia_CprovIgnoreCase(String cprov);
+    List<Municipio> findAllByProvincia_NprovIgnoreCase(String nprov);
+    List<Municipio> findAllByProvincia_CprovIgnoreCase(String cprov);
 
 
 }

@@ -15,7 +15,7 @@ public class Provincia extends BaseEntity<String> {
 
 
     @Id
-    @Column(length = 2, nullable = false)
+    @Column(length = 3, nullable = false)
     private String cprov;
     @Column(length = 100, nullable = false)
     private String nprov;

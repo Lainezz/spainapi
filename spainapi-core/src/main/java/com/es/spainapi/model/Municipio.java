@@ -19,7 +19,7 @@ public class Municipio extends BaseEntity<MunicipioId> {
     private String nmun;
 
     // Códigos MEH
-    @Column(name = "meh_cd", length = 2)
+    @Column(name = "meh_cd", length = 3)
     private String mehCd;
 
     @Column(name = "meh_cmc", length = 3)

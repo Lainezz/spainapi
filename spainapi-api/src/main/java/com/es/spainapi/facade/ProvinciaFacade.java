@@ -1,41 +1,38 @@
 package com.es.spainapi.facade;
 
 import com.es.spainapi.dto.ProvinciaDTO;
-import com.es.spainapi.model.Provincia;
+import com.es.spainapi.mapper.ProvinciaMapper;
 import com.es.spainapi.service.api.ProvinciaServiceAPI;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Facade class. This will have the cast between DTO and Entities
  */
 @Service
 public class ProvinciaFacade {
 
-    private final ProvinciaServiceAPI service;
-    private final ModelMapper mm;
+    private final ProvinciaServiceAPI provinciaService;
+    private final ProvinciaMapper provinciaMapper;
 
-    public ProvinciaFacade(ProvinciaServiceAPI service, ModelMapper mm) {
-        this.service = service;
-        this.mm = mm;
+    public ProvinciaFacade(ProvinciaServiceAPI provinciaService, ProvinciaMapper provinciaMapper) {
+        this.provinciaService = provinciaService;
+        this.provinciaMapper = provinciaMapper;
     }
 
     public List<ProvinciaDTO> getAll() {
-        return service.getAll().stream().map(p -> mm.map(p, ProvinciaDTO.class)).collect(Collectors.toList());
+        return provinciaMapper.toDtoList(provinciaService.getAll());
     }
 
-    public ProvinciaDTO getOne(String id) {
-        return mm.map(service.getOne(id), ProvinciaDTO.class);
+    public ProvinciaDTO getOne(String cprov) {
+        return provinciaMapper.toDto(provinciaService.getOne(cprov));
     }
 
     public ProvinciaDTO insertOne(ProvinciaDTO dto) {
-        return mm.map(service.insertOne(mm.map(dto, Provincia.class)), ProvinciaDTO.class);
+        return provinciaMapper.toDto(provinciaService.insertOne(provinciaMapper.toEntity(dto)));
     }
 
-    public void deleteOne(String id) {
-        service.deleteOne(id);
+    public void deleteOne(String cprov) {
+        provinciaService.deleteOne(cprov);
     }
 }

@@ -2,17 +2,14 @@ package com.es.spainapi.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Setter @Getter
 @AllArgsConstructor @NoArgsConstructor
-@Embeddable
+@Embeddable @ToString
 public class MunicipioId implements Serializable {
 
     @Column(name = "cprov", length = 3, nullable = false)
